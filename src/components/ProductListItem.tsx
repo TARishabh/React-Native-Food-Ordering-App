@@ -7,8 +7,7 @@ type ProductListItemProps = {
   product:Product
 }
 
-const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/veggie.png'
-
+export const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/veggie.png'
 const ProductListItem = ({product}:ProductListItemProps) =>{
   return (
     <Link href={`/(tabs)/menu/${product.id}`} asChild>

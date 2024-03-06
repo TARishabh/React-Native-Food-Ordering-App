@@ -11,7 +11,7 @@ const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/
 
 const ProductListItem = ({product}:ProductListItemProps) =>{
   return (
-    <Link href={`${product.id}`} asChild>
+    <Link href={`/(tabs)/menu/${product.id}`} asChild>
     <Pressable style={styles.container}>
       <Image resizeMode='contain' source={{uri:product.image || fallbackImage}} style={styles.image}/>
       <Text style={styles.title}>{product.name}</Text>

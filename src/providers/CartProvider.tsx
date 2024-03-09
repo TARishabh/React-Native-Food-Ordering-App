@@ -40,7 +40,6 @@ const CartProvider = ({ children }: PropsWithChildren) => {
       
       setItems([newCartItem,...items]);
     }
-    console.log(items)
 
     const updateQuantity = (itemId: string, amount: -1 | 1) =>{
       // console.log(itemId,amount)

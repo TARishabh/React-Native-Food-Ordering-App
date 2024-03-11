@@ -6,7 +6,7 @@ import { Pressable } from "react-native";
 export default function MenuStack() {
     return (
         <Stack>
-            <Stack.Screen name="index" options={{ title: 'Menu',
+            <Stack.Screen name="index" options={{ title: 'Menu', headerTitleAlign:'center',
                     headerRight: () => (
                         <Link href="/(admin)/menu/create" asChild>
                             <Pressable>

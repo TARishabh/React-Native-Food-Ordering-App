@@ -1,4 +1,5 @@
 The Project structure according to my current understanding is:
+PS:- My Understanding is generally 70% Wrong.
 
 SRC contains all the files and folders which are important for the running of the project during build:
 
@@ -17,3 +18,12 @@ _layout.tsx -> is responsible for defining shared layout elements across the app
 
 index.tsx ->  is often the entry point or main file of a specific feature or section within your app.
 
+so let's say first we open (user) route, we again see three files _layout.tsx,index.tsx, two.tsx
+
+two.tsx is a tab which is commented because we don't want another tab at bottom.
+
+
+
+// REACT QUERY CACHES THE DATA IN THE MEMORY WHICH HELPS IN FASTER RELOAD OF THE APPLICATION.
+
+// leverage the power of caching mechanism

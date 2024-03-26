@@ -21,7 +21,7 @@ export default function MenuStack() {
                 </Link>
             )
         }}>
-            <Stack.Screen name="index" options={{ title: 'Menu' }} />
+            <Stack.Screen name="index" options={{ title: 'Menu', headerTitleAlign:'center' }} />
         </Stack>
     )
 }

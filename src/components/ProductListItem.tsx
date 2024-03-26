@@ -1,10 +1,10 @@
 import { StyleSheet,Text, View, Image, Pressable} from 'react-native';
 import Colors from '@/constants/Colors';
-import { Product } from '@/types';
 import { Link, useSegments } from 'expo-router';
+import { Tables } from '@/database.types';
 
 type ProductListItemProps = {
-  product:Product
+  product:Tables<'products'>
 }
 
 export const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/veggie.png'

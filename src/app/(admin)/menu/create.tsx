@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, Image, Alert, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Button from '@/components/Button'
-import { fallbackImage } from '@/components/ProductListItem';
+import { defaultPizzaImage } from '@/components/ProductListItem';
 import Colors from '@/constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
@@ -20,11 +20,12 @@ const CreateProductScreen = () => {
     const router = useRouter();
     const {data: updatingProduct} = useProduct(id);
     const {mutate: DeleteProduct} = useDeleteProduct();
-
     useEffect(()=>{
-        setName(updatingProduct.name)
-        setPrice(updatingProduct.price.toString())
-        setImage(updatingProduct.image)
+        if (updatingProduct){
+            setName(updatingProduct.name)
+            setPrice(updatingProduct.price.toString())
+            setImage(updatingProduct.image)
+        }
     },[updatingProduct])
 
     const pickImage = async () => {
@@ -123,7 +124,7 @@ const CreateProductScreen = () => {
     return (
         <View style={styles.container}>
             <Stack.Screen options={{title:isUpdating ? 'Update Product' :'Create Product',headerTitleAlign: 'center',}} />
-            <Image source={{ uri: image || fallbackImage }} style={styles.image} />
+            <Image source={{ uri: image || defaultPizzaImage }} style={styles.image} />
             <Text onPress={pickImage} style={styles.textButton}>Select Image</Text>
 
             <Text style={styles.label}>Name</Text>

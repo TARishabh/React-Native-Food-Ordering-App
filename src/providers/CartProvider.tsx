@@ -2,6 +2,9 @@ import { PropsWithChildren, createContext, useContext, useState } from "react";
 import {CartItem } from '@/types'
 import {randomUUID} from 'expo-crypto';
 import { Tables } from "@/database.types";
+import { useInsertOrder } from "@/api/orders";
+import { useRouter } from "expo-router";
+import { useInsertOrderItems } from "@/api/order-items";
 
 type Product = Tables<'products'>
 
@@ -10,6 +13,7 @@ type CartType = {
     addItem:(product:Product, size: CartItem['size'])=> void;
     updateQuantity: (itemId: string, amount: -1 | 1) => void;
     total:number;
+    checkout: () => void
 }
 
 
@@ -17,7 +21,8 @@ const CartContext = createContext<CartType>({
     items:[],
     addItem:()=>{},
     updateQuantity:()=> {},
-    total:0 
+    total:0,
+    checkout: () => {}
 });
 
 const CartProvider = ({ children }: PropsWithChildren) => {
@@ -26,6 +31,9 @@ const CartProvider = ({ children }: PropsWithChildren) => {
 
 
     const [items, setItems] = useState<CartItem[]>([]);
+    const router = useRouter();
+    const {mutate: insertOrder} = useInsertOrder();
+    const {mutate: insertOrderItems} = useInsertOrderItems();
     const addItem = (product:Product, size: CartItem['size'])=>{
       
       const existingItem = items.find((item)=>item.product === product && item.size === size)
@@ -53,8 +61,38 @@ const CartProvider = ({ children }: PropsWithChildren) => {
 
     const total = items.reduce((sum,item)=>(sum +=item.product.price * item.quantity),0)
 
+    const checkout = () =>{
+      console.warn("Checking Out")
+      insertOrder({total},
+        {
+        onSuccess:saveOrderItems,
+      })
+    }
+
+    const clearCart = () =>{
+      setItems([])
+    }
+
+    const saveOrderItems = (order:Tables<'orders'>) =>{
+
+      const orderItems = items.map((cartItems)=>({
+        order_id:order.id,
+        product_id:cartItems.product_id,
+        quantity:cartItems.quantity,
+        size:cartItems.size,
+      }
+      ))
+
+      insertOrderItems(orderItems,{
+        onSuccess(){
+          clearCart(),
+          router.push(`/(user)/orders/${order?.id}`)
+        }
+      })
+    }
+
   return (
-    <CartContext.Provider value={{ items, addItem ,updateQuantity,total}}>
+    <CartContext.Provider value={{ items, addItem ,updateQuantity,total,checkout}}>
       {children}
     </CartContext.Provider>
   );

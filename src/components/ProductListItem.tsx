@@ -7,13 +7,13 @@ type ProductListItemProps = {
   product:Tables<'products'>
 }
 
-export const fallbackImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/veggie.png'
+export const defaultPizzaImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/veggie.png'
 const ProductListItem = ({product}:ProductListItemProps) =>{
   const segments = useSegments();
   return (
     <Link href={`/${segments[0]}/menu/${product.id}`} asChild>
     <Pressable style={styles.container}>
-      <Image resizeMode='contain' source={{uri:product.image || fallbackImage}} style={styles.image}/>
+      <Image resizeMode='contain' source={{uri:product.image || defaultPizzaImage}} style={styles.image}/>
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
       </Pressable>

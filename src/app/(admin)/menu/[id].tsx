@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, Pressable, ActivityIndicator } from 'rea
 import React from 'react'
 import { useLocalSearchParams,Stack, useRouter, Link } from 'expo-router'
 import products from '@assets/data/products'
-import { fallbackImage } from '@/components/ProductListItem'
+import { defaultPizzaImage } from '@/components/ProductListItem'
 import { useState } from 'react'
 import Button from '@/components/Button'
 import { useCart } from '@/providers/CartProvider'
@@ -55,7 +55,7 @@ const ProductDetailsScreen = () => {
                         </Link>
                     )}} />
       <Stack.Screen options={{title:product.name}}/>
-      <Image source={{uri:product.image || fallbackImage}} style={styles.image} />
+      <Image source={{uri:product.image || defaultPizzaImage}} style={styles.image} />
       <Text style={styles.title}>${product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
     </View>

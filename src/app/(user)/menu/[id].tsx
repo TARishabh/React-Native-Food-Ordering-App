@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useLocalSearchParams,Stack, useRouter } from 'expo-router'
-import { fallbackImage } from '@/components/ProductListItem'
+import { defaultPizzaImage } from '@/components/ProductListItem'
 import { useState } from 'react'
 import Button from '@/components/Button'
 import { useCart } from '@/providers/CartProvider'
@@ -38,7 +38,7 @@ const ProductDetailsScreen = () => {
   return (
     <View style={styles.container}>
       <Stack.Screen options={{title:product.name}}/>
-      <Image source={{uri:product.image || fallbackImage}} style={styles.image} />
+      <Image source={{uri:product.image || defaultPizzaImage}} style={styles.image} />
       <Text>Select Size</Text>
       <View style={styles.sizes}>
       {sizes.map((size)=>(
